@@ -1,8 +1,9 @@
 const nav = Pager.nav
 const lib = ao2.lib
 
+let menus = null  // 菜单实例
 function mkmenus(data){
-  let menus = ui_list({
+  menus = ui_list({
     data: data,
     itemMethod: {
       aim(e, param, inst){
@@ -24,9 +25,12 @@ export default Pager.pages([
   {url: '/index/c', content: import('./_subpages/c')},
 ], {
   select: '/index/a',
+  goback(param){
+    menus.select(param.index)
+  },
   menus: function() {
     return mkmenus([
-      {title: '菜单1', attr: {to: '/index/a', index: 0}},
+      {title: '菜单1', attr: {to: '/index/a', index: 0}, select: true},
       {title: '菜单2', attr: {to: '/index/b', index: 1}},
       {title: '菜单3', attr: {to: '/index/c', index: 2}},
       {title: '菜单4', attr: {to: '/index/a', index: 3}},
